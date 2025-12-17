@@ -1,0 +1,25 @@
+name: Nutjob Günlük Tarama
+
+on:
+  schedule:
+    # Her gün sabah 07:00 UTC (Türkiye saatiyle 10:00) çalışır
+    - cron: '0 7 * * *'
+  workflow_dispatch: # İstediğin zaman elle de çalıştırabilmen için
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodları Çek
+        uses: actions/checkout@v3
+
+      - name: Python Kurulumu
+          python-version: '3.11'
+
+      - name: Kütüphaneleri Yükle
+        run: |
+          pip install -r requirements.txt
+
+      - name: Botu Çalıştır
+        run: python real_bot.py
